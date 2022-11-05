@@ -132,9 +132,9 @@
 > Remove the #
 
 > Install drivers for monitor and processors
-lspci -v | grep -A1 -e VGA -e 3D
-sudo pacman -Sy xorg
+- lspci -v | grep -A1 -e VGA -e 3D
+- sudo pacman -Sy xorg
 > Note: this is a driver for intel, if you have other processor you need to find by yourself
-sudo pacman -Sy xf86-video-intel mesa lib32-mesa
+- sudo pacman -Sy xf86-video-intel mesa lib32-mesa
 
 # Finish Instalation
