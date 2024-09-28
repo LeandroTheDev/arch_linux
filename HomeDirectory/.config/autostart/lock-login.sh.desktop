@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=/home/bobs/System/Scripts/lock-login.sh
+Icon=application-x-shellscript
+Name=lock-login.sh
+Type=Application
+X-KDE-AutostartScript=true

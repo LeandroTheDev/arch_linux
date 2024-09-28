@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=/home/bobs/System/Scripts/mount-drive.sh
+Icon=application-x-shellscript
+Name=mount-drive.sh
+Type=Application
+X-KDE-AutostartScript=true

@@ -1,0 +1,6 @@
+[Jobs]
+InNotifications=false
+PermanentPopups=false
+
+[Notifications]
+PopupPosition=BottomRight

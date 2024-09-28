@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=/home/bobs/System/Scripts/memory.sh
+Icon=application-x-shellscript
+Name=memory.sh
+Type=Application
+X-KDE-AutostartScript=true

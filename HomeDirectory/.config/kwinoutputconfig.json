@@ -1,0 +1,49 @@
+[
+    {
+        "data": [
+            {
+                "autoRotation": "InTabletMode",
+                "brightness": 1,
+                "colorProfileSource": "sRGB",
+                "connectorName": "DP-1",
+                "edidHash": "d62ed32bef6c8d81dd0b8902a09c6914",
+                "edidIdentifier": "SAM 28939 877279065 31 2021 0",
+                "highDynamicRange": false,
+                "iccProfilePath": "",
+                "mode": {
+                    "height": 1080,
+                    "refreshRate": 143980,
+                    "width": 1920
+                },
+                "overscan": 0,
+                "rgbRange": "Automatic",
+                "scale": 1,
+                "sdrBrightness": 200,
+                "sdrGamutWideness": 0,
+                "transform": "Normal",
+                "vrrPolicy": "Automatic",
+                "wideColorGamut": false
+            }
+        ],
+        "name": "outputs"
+    },
+    {
+        "data": [
+            {
+                "lidClosed": false,
+                "outputs": [
+                    {
+                        "enabled": true,
+                        "outputIndex": 0,
+                        "position": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "priority": 0
+                    }
+                ]
+            }
+        ],
+        "name": "setups"
+    }
+]

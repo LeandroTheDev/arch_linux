@@ -1,0 +1,15 @@
+[Added Associations]
+inode/directory=org.kde.dolphin.desktop;code-oss.desktop;
+text/plain=org.kde.kwrite.desktop;
+
+[Default Applications]
+inode/directory=org.kde.dolphin.desktop;
+text/html=google-chrome.desktop
+text/plain=org.kde.kwrite.desktop;
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+
+[Removed Associations]
+application/x-shellscript=vim.desktop;
+inode/directory=org.kde.kate.desktop;
+text/plain=org.kde.kate.desktop;vim.desktop;
