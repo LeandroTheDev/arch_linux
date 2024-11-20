@@ -1,6 +1,7 @@
-# Starting
+# Leans Gen
+Ultra simple arch linux installation with KDE
 
-This is a repository to save some of my process in the arch linux, all the process is in the [Wiki](https://github.com/LeandroTheDev/arch_linux/wiki) pages
-
-
-Problems will be in the [Issues](https://github.com/LeandroTheDev/arch_linux/issues) sections
+### How to use
+- Download the [arch linux iso](https://archlinux.org/download/)
+- Create the flash usb my recommendation is using [Ventoy](https://www.ventoy.net/en/download.html)
+- After using booting in the usb and selecting arch linux use the comand curl to execute the installation script
