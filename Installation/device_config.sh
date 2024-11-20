@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ -z "$BOOTPARTITION" ]; then
-    echo "BOOTPARTITION is not defined, define it with: export BOOTPARTITION=/dev/sd?, and execute device_config.sh again"
+if [ -z "$INSTALLPARTITION" ]; then
+    echo "INSTALLPARTITION is not defined, define it with: export INSTALLPARTITION=/dev/sd?, and execute device_config.sh again"
     exit 1
 fi
 
@@ -37,7 +37,7 @@ usermod -aG wheel $username
 sudo sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 pacman -S btrfs-progs grub grub-btrfs efibootmgr dosfstools os-prober mtools ntfs-3g snapper --noconfirm
 mkdir /boot/EFI
-mount $BOOTPARTITION /boot/EFI
+mount $INSTALLPARTITION /boot/EFI
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 

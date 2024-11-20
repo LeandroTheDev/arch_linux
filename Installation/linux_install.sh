@@ -17,4 +17,3 @@ fi
 pacman -Sy archlinux-keyring --noconfirm
 PACMAN_OPTS="--noconfirm" pacstrap /mnt base-devel base linux linux-firmware vim
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt bash -c "export BOOTPARTITION=$BOOTPARTITION && echo \"under development\""
