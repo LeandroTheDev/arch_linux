@@ -89,4 +89,4 @@ else
     exit 1
 fi
 
-echo "Disk setup is complete"
+echo "Disk setup is complete, mounted the btrfs in /mnt"
