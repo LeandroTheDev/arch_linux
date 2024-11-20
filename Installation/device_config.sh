@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -z "$BOOTPARTITION" ]; then
     echo "BOOTPARTITION is not defined, define it with: export BOOTPARTITION=/dev/sd?, and execute device_config.sh again"
     exit 1
