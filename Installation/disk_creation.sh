@@ -33,14 +33,14 @@ dd if=/dev/zero of="$disk" bs=1M status=progress
 
 # Disk formatting
 fdisk "$disk" <<EOF
-g   # Create a new empty gpt partition
-n   # Create a new partition
+g
+n
 
 
-+300M # Partition size
-t     # Changing the partition type
-1     # EFI type
-n     # Creating a new partition (Linux with the remaining size)
++300M
+t
+1
+n
 
 
 
