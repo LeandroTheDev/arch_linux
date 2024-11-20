@@ -16,6 +16,7 @@ if [ ! -e "$disk" ]; then
     exit 1
 fi
 
+export INSTALLPARTITION=$disk
 
 # Device partitioning
 sh -c "$(curl -sS https://raw.githubusercontent.com/LeandroTheDev/arch_linux/refs/heads/leansgen/Installation/disk_creation.sh)"

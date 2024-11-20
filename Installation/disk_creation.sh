@@ -1,16 +1,16 @@
 #!/bin/bash
 clear
-echo "Partitioning in: $BOOTPARTITION"
+echo "Partitioning in: $INSTALLPARTITION"
 
-# Verificando se BOOTPARTITION está vazio ou não existe
-if [ -z "$BOOTPARTITION" ]; then
-    echo "You need to set the BOOTPARTITION variable, try: export BOOTPARTITION=/dev/sd? before running this script"
+# Verificando se INSTALLPARTITION está vazio ou não existe
+if [ -z "$INSTALLPARTITION" ]; then
+    echo "You need to set the INSTALLPARTITION variable, try: export INSTALLPARTITION=/dev/sd? before running this script"
     exit 1
 fi
 
 
 # Installation Confirmation
-echo "Are you sure you want to install in "$BOOTPARTITION" all contents inside this drive will be deleted"
+echo "Are you sure you want to install in "$INSTALLPARTITION" all contents inside this drive will be deleted"
 read -p "Do you want to proceed? (y/N): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ "$response" != "y" && "$response" != "yes" ]]; then
@@ -22,12 +22,12 @@ fi
 
 # Erase data before using fdisk to prevent unwanted messages
 echo "Erasing data..."
-dd if=/dev/zero of="$BOOTPARTITION" bs=1M status=progress
+dd if=/dev/zero of="$INSTALLPARTITION" bs=1M status=progress
 
 
 
 # Disk formatting
-fdisk "$BOOTPARTITION" <<EOF
+fdisk "$INSTALLPARTITION" <<EOF
 g
 n
 
@@ -52,14 +52,14 @@ fi
 echo "Creating signatures..."
 
 # Disk signatures
-if [[ $BOOTPARTITION == /dev/nvme* ]]; then
-    mkfs.fat -F32 "${BOOTPARTITION}p1"
-    mkfs.btrfs "${BOOTPARTITION}p2"
-    mount "${BOOTPARTITION}p2" /mnt
-elif [[ $BOOTPARTITION == /dev/sd* ]]; then
-    mkfs.fat -F32 "${BOOTPARTITION}1"
-    mkfs.btrfs "${BOOTPARTITION}2"
-    mount "${BOOTPARTITION}2" /mnt
+if [[ $INSTALLPARTITION == /dev/nvme* ]]; then
+    mkfs.fat -F32 "${INSTALLPARTITION}p1"
+    mkfs.btrfs "${INSTALLPARTITION}p2"
+    mount "${INSTALLPARTITION}p2" /mnt
+elif [[ $INSTALLPARTITION == /dev/sd* ]]; then
+    mkfs.fat -F32 "${INSTALLPARTITION}1"
+    mkfs.btrfs "${INSTALLPARTITION}2"
+    mount "${INSTALLPARTITION}2" /mnt
 else
     echo "Cannot proceed the signature the device is unkown, only supports nvme and sata/ssd disk"
     exit 1
@@ -71,14 +71,14 @@ btrfs subvolume create /mnt/@home
 umount /mnt
 
 # Compression
-if [[ $BOOTPARTITION == /dev/nvme* ]]; then
-    mount -o compress=zstd,subvol=@ "${BOOTPARTITION}p2" /mnt
+if [[ $INSTALLPARTITION == /dev/nvme* ]]; then
+    mount -o compress=zstd,subvol=@ "${INSTALLPARTITION}p2" /mnt
     mkdir -p /mnt/home
-    mount -o compress=zstd,subvol=@home "${BOOTPARTITION}p2" /mnt/home
-elif [[ $BOOTPARTITION == /dev/sd* ]]; then
-    mount -o compress=zstd,subvol=@ "${BOOTPARTITION}2" /mnt
+    mount -o compress=zstd,subvol=@home "${INSTALLPARTITION}p2" /mnt/home
+elif [[ $INSTALLPARTITION == /dev/sd* ]]; then
+    mount -o compress=zstd,subvol=@ "${INSTALLPARTITION}2" /mnt
     mkdir -p /mnt/home
-    mount -o compress=zstd,subvol=@home "${BOOTPARTITION}2" /mnt/home
+    mount -o compress=zstd,subvol=@home "${INSTALLPARTITION}2" /mnt/home
 else
     echo "Cannot proceed the signature the device is unkown, only supports nvme and sata/ssd disk"
     exit 1
