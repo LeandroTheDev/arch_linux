@@ -8,7 +8,7 @@ fi
 echo "Install linux in the mounted device /mnt?"
 read -p "Do you want to proceed? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
-if [[ "$response" == "n" || "$response" == "no" || -z "$response" ]]; then
+if [[ "$response" == "n" || "$response" == "no" ]]; then
     echo "Aborted"
     exit 1
 fi
