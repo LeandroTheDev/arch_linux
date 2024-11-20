@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=$HOME/System/Scripts/lockscreen.sh
+Icon=application-x-shellscript
+Name=lockscreen.sh
+Type=Application
+X-KDE-AutostartScript=true

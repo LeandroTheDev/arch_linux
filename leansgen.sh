@@ -39,6 +39,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Device configurations has been a success, don't forget to run the fresh_install.sh script after rebooting and loging, the system will reboot now, press any key to reboot"
+echo "Device configurations has been a success, the system will reboot now, press any key to reboot"
 read -n 1 -s
 reboot
