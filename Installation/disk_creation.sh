@@ -89,4 +89,5 @@ else
     exit 1
 fi
 
+export BOOTPARTITION=$disk
 echo "Disk setup is complete, mounted the btrfs in /mnt"
