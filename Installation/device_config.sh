@@ -72,4 +72,5 @@ chmod 755 /usr/sbin/update-grub
 
 pacman -S networkmanager --noconfirm
 systemctl enable NetworkManager
-exit umount -R /mnt
+umount -R /mnt
+exit
