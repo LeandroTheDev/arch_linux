@@ -1,8 +1,4 @@
 #!/bin/bash
-clear
-echo "Partitioning in: $INSTALLPARTITION"
-
-# Verificando se INSTALLPARTITION está vazio ou não existe
 if [ -z "$INSTALLPARTITION" ]; then
     echo "You need to set the INSTALLPARTITION variable, try: export INSTALLPARTITION=/dev/sd? before running this script"
     exit 1
@@ -10,6 +6,7 @@ fi
 
 
 # Installation Confirmation
+clear
 echo "Are you sure you want to install in "$INSTALLPARTITION" all contents inside this drive will be deleted"
 read -p "Do you want to proceed? (y/N): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
@@ -48,6 +45,16 @@ else
     echo "Something went wrong..."
     exit 1
 fi
+output=$(lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT "$INSTALLPARTITION" | grep -E "part")
+partition_count=$(echo "$output" | wc -l)
+# Checking partition count
+if [[ $partition_count -ne 2 ]]; then
+    echo "Something went wrong, the device has not been correctly partitioned"
+    exit 1
+fi
+
+
+
 
 echo "Creating signatures..."
 

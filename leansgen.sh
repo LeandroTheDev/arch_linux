@@ -1,7 +1,6 @@
 #!/bin/bash
-echo "Welcome to Leans Gen, in the next steps you will install a fresh arch linux in your device, please proceed with caution"
+echo "Welcome to Leans Gen, in the next steps you will install a fresh arch linux in your device, please proceed with caution, this installer requires constant internet connection."
 read -p "Press any key to continue"
-
 
 clear # Clear previously messages
 lsblk # Show devices available
@@ -13,6 +12,15 @@ disk="/dev/$disk"
 # Checking if the user input exist
 if [ ! -e "$disk" ]; then
     echo "$disk does not exist"
+    exit 1
+fi
+#  Checking if is mounted somewhere
+if mount | grep -q "/dev/$disk"; then
+    echo "Disk $disk is currently mounted and in use, try using: umount -R $disk"
+    exit 1
+# Checking if is currently in use    
+elif lsof | grep -q $disk; then
+    echo "Disk $disk is being used by some processes."
     exit 1
 fi
 
@@ -39,6 +47,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Device configurations has been a success, the system will reboot now, press any key to reboot"
+echo "Device configurations has been a success, the system will reboot now, press any key to reboot GLHF"
 read -n 1 -s
 reboot

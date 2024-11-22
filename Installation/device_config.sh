@@ -1,9 +1,10 @@
 #!/bin/bash
 if [ -z "$INSTALLPARTITION" ]; then
-    echo "INSTALLPARTITION is not defined, define it with: export INSTALLPARTITION=/dev/sd?, and execute device_config.sh again"
+    echo "You need to set the INSTALLPARTITION variable, try: export INSTALLPARTITION=/dev/sd? before running this script"
     exit 1
 fi
 
+clear
 hwclock --systohc
 while true; do
     echo "System Language"
@@ -58,7 +59,7 @@ else
     exit 1
 fi
 
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+grub-install --target=x86_64-efi --bootloader-id=LeansGen --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 tee /usr/sbin/update-grub > /dev/null << 'EOF'
@@ -77,9 +78,7 @@ sed -i 's/^#\[\(multilib\)\]/[\1]/' /etc/pacman.conf
 sed -i 's/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/' /etc/pacman.conf
 
 # Installing the OS
-pacman -S plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm plasma-vault
-systemctl --user enable wireplumber.service pipewire.service pipewire-pulse.service --root=/home/$username
-echo -e '\n# Start kde when logging in tty1\nif [[ $(tty) == /dev/tty1 ]]; then\n    startplasma-wayland\nfi' >> /home/$username/.bashrc
+pacman -S plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
 # git clone home to here
 # /etc/skel/
@@ -95,6 +94,31 @@ btrfs subvolume create /swap
 btrfs filesystem mkswapfile --size ${swap_size_gb}g --uuid clear /swap/swapfile
 swapon /swap/swapfile
 echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
+
+
+
+# Auto logging in KDE
+echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE?, if you are a newbie consider choosing N"
+read -p "Do you want to accept? (y/N): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ "$response" == "y" && "$response" == "yes" ]]; then
+    mkdir /etc/systemd/system/getty@tty1.service.d
+    cat > "/etc/systemd/system/getty@tty1.service.d/autologin.conf" <<EOF
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $username %I \$TERM
+EOF
+    echo -e '\n# Start kde when logging in tty1\nif [[ $(tty) == /dev/tty1 ]]; then\n    startplasma-wayland\nfi' >> /home/$username/.bashrc
+else
+    # SDDM Version
+    echo "Do you wish to use a login manager instead? (SDDM), if you are a newbie consider choosing Y"
+    read -p "Do you want to accept? (Y/n): " response
+    response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+    if [[ "$response" == "y" && "$response" == "yes" ]]; then
+        pacman -S sddm --noconfirm
+        systemctl enable sddm
+    fi
+fi
 
 # Snapshot creation
 snapper create-config /
