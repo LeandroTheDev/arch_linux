@@ -1,6 +1,0 @@
-[Desktop Entry]
-Exec=$HOME/System/Scripts/firstload.sh
-Icon=application-x-shellscript
-Name=firstload.sh
-Type=Application
-X-KDE-AutostartScript=true

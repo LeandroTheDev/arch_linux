@@ -20,5 +20,6 @@ if grep -q "<downloads>14749</downloads>" "$FILE"; then
     sed -i "/<downloads>14749<\/downloads>/a $NEW_LINE" "$FILE"
 fi
 
-# This script will auto delete it after the first start in kde
-rm -rf $HOME/System/Scripts/firstload.sh
+# This script will auto delete after executing
+rm -rf $HOME/System/Scripts/firstload.sh # Deleting the script
+sed -i '/FILE="\$HOME\/System\/Scripts\/firstload.sh"/,/fi/d' "$$HOME/.bashrc" # Deleting the lines in .bashrc

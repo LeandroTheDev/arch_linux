@@ -5,6 +5,15 @@ if [ -z "$INSTALLPARTITION" ]; then
 fi
 
 clear
+
+echo "Downloading system template..."
+pacman -S git --noconfirm
+cd /tmp
+git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arch_linux.git
+cp -r /tmp/arch_linux/Home/* /etc/skel
+rm -rf /tmp/arch_linux
+
+
 hwclock --systohc
 while true; do
     echo "System Language"
@@ -80,9 +89,6 @@ sed -i 's/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mir
 # Installing the OS
 pacman -S plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
-# git clone home to here
-# /etc/skel/
-
 # Swap memory creation
 echo "How much GB do you want for swap memory?"
 read swap_size_gb
@@ -98,7 +104,7 @@ echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
 
 # Auto logging in KDE
-echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE?, if you are a newbie consider choosing N"
+echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE and lock the session?, if you are a newbie consider choosing N"
 read -p "Do you want to accept? (y/N): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ "$response" == "y" && "$response" == "yes" ]]; then
@@ -109,6 +115,17 @@ ExecStart=
 ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $username %I \$TERM
 EOF
     echo -e '\n# Start kde when logging in tty1\nif [[ $(tty) == /dev/tty1 ]]; then\n    startplasma-wayland\nfi' >> /home/$username/.bashrc
+    LOCKSCREEN_SCRIPT="$/home/$username/System/Scripts/lockscreen.sh"
+    echo '#!/bin/sh' > "$LOCKSCREEN_SCRIPT"
+    echo 'loginctl lock-session' >> "$LOCKSCREEN_SCRIPT"
+    chmod +x "$LOCKSCREEN_SCRIPT"
+    LOCKSCREEN_DESKTOP="$/home/$username/.config/autostart/lockscreen.sh.desktop"
+    echo '[Desktop Entry]' > "$LOCKSCREEN_DESKTOP"
+    echo "Exec=/home/$username/System/Scripts/lockscreen.sh" >> "$LOCKSCREEN_DESKTOP"
+    echo 'Icon=application-x-shellscript' >> "$LOCKSCREEN_DESKTOP"
+    echo 'Name=lockscreen.sh' >> "$LOCKSCREEN_DESKTOP"
+    echo 'Type=Application' >> "$LOCKSCREEN_DESKTOP"
+    echo 'X-KDE-AutostartScript=true' >> "$LOCKSCREEN_DESKTOP"
 else
     # SDDM Version
     echo "Do you wish to use a login manager instead? (SDDM), if you are a newbie consider choosing Y"
