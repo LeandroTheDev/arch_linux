@@ -15,7 +15,8 @@ if [[ "$response" != "y" && "$response" != "yes" ]]; then
     exit 1
 fi
 
-
+# Necessary dependencie
+pacman -Sy util-linux --noconfirm
 
 # Erase data before using fdisk to prevent unwanted messages
 echo "Erasing data..."
