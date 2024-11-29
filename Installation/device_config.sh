@@ -107,7 +107,7 @@ echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE and lock the session?, if you are a newbie consider choosing N"
 read -p "Do you want to accept? (y/N): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
-if [[ "$response" == "y" && "$response" == "yes" ]]; then
+if [[ "$response" == "y" || "$response" == "yes" ]]; then
     mkdir /etc/systemd/system/getty@tty1.service.d
     cat > "/etc/systemd/system/getty@tty1.service.d/autologin.conf" <<EOF
 [Service]
@@ -131,7 +131,10 @@ else
     echo "Do you wish to use a login manager instead? (SDDM), if you are a newbie consider choosing Y"
     read -p "Do you want to accept? (Y/n): " response
     response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
-    if [[ "$response" == "y" && "$response" == "yes" ]]; then
+    if [[ -z "$response" ]]; then
+        response="y"
+    fi
+    if [[ "$response" == "y" || "$response" == "yes" ]]; then
         pacman -S sddm --noconfirm
         systemctl enable sddm
     fi
@@ -142,4 +145,4 @@ snapper create-config /
 snapper -c root create -d "Fresh Install"
 update-grub
 
-umount -R /mnt
+exit

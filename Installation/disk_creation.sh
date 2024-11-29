@@ -19,7 +19,7 @@ fi
 
 # Erase data before using fdisk to prevent unwanted messages
 echo "Erasing data..."
-dd if=/dev/zero of="$INSTALLPARTITION" bs=1M status=progress
+wipefs -a -f "$INSTALLPARTITION"
 
 
 
