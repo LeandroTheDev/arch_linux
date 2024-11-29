@@ -15,6 +15,10 @@ if [ ! -e "$disk" ]; then
     echo "$disk does not exist"
     exit 1
 fi
+
+# Necessary dependencie
+pacman -Sy lsof --noconfirm
+
 #  Checking if is mounted somewhere
 if mount | grep -q "/dev/$disk"; then
     echo "Disk $disk is currently mounted and in use, try using: umount -R $disk"
