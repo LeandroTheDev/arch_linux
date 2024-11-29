@@ -87,7 +87,7 @@ sed -i 's/^#\[\(multilib\)\]/[\1]/' /etc/pacman.conf
 sed -i 's/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/' /etc/pacman.conf
 
 # Installing the OS
-pacman -S plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
+pacman -Sy plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
 # Swap memory creation
 echo "How much GB do you want for swap memory?"
@@ -115,11 +115,11 @@ ExecStart=
 ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $username %I \$TERM
 EOF
     echo -e '\n# Start kde when logging in tty1\nif [[ $(tty) == /dev/tty1 ]]; then\n    startplasma-wayland\nfi' >> /home/$username/.bashrc
-    LOCKSCREEN_SCRIPT="$/home/$username/System/Scripts/lockscreen.sh"
+    LOCKSCREEN_SCRIPT="/home/$username/System/Scripts/lockscreen.sh"
     echo '#!/bin/sh' > "$LOCKSCREEN_SCRIPT"
     echo 'loginctl lock-session' >> "$LOCKSCREEN_SCRIPT"
     chmod +x "$LOCKSCREEN_SCRIPT"
-    LOCKSCREEN_DESKTOP="$/home/$username/.config/autostart/lockscreen.sh.desktop"
+    LOCKSCREEN_DESKTOP="/home/$username/.config/autostart/lockscreen.sh.desktop"
     echo '[Desktop Entry]' > "$LOCKSCREEN_DESKTOP"
     echo "Exec=/home/$username/System/Scripts/lockscreen.sh" >> "$LOCKSCREEN_DESKTOP"
     echo 'Icon=application-x-shellscript' >> "$LOCKSCREEN_DESKTOP"
@@ -131,10 +131,7 @@ else
     echo "Do you wish to use a login manager instead? (SDDM), if you are a newbie consider choosing Y"
     read -p "Do you want to accept? (Y/n): " response
     response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
-    if [[ -z "$response" ]]; then
-        response="y"
-    fi
-    if [[ "$response" == "y" || "$response" == "yes" ]]; then
+    if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
         pacman -S sddm --noconfirm
         systemctl enable sddm
     fi
