@@ -156,8 +156,14 @@ swapon /swap/swapfile
 echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
 # Snapshot creation
-snapper create-config /
-snapper -c root create -d "Fresh Install"
+echo "Do you wish to create a snapshot from the base system to recovery later if needed?"
+read -p "Do you want to accept? (Y/n): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
+    snapper create-config /
+    snapper -c root create -d "Fresh Install"
+fi
+
 update-grub
 
 exit
