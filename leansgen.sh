@@ -52,7 +52,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-umount -R /mnt
+clear
+
+umount -R -l /mnt
 
 echo "Device configurations has been a success, the system will reboot now, press any key to reboot GLHF"
 read -n 1 -s

@@ -1,4 +1,6 @@
 #!/bin/bash
+clear
+
 if ! mount | grep -q 'on /mnt '; then
     echo "There is no partition mounted in /mnt, you need to mount your system before executing the script, if you are trying execute this script manually without the installer script is because you missed something after the disk signatures, refer the disk_creation.sh in the github installation folder"
     exit 1

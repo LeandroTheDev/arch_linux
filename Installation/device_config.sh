@@ -1,4 +1,5 @@
 #!/bin/bash
+clear
 if [ -z "$INSTALLPARTITION" ]; then
     echo "You need to set the INSTALLPARTITION variable, try: export INSTALLPARTITION=/dev/sd? before running this script"
     exit 1
@@ -13,7 +14,7 @@ git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arc
 cp -r /tmp/arch_linux/Home/* /etc/skel
 rm -rf /tmp/arch_linux
 
-
+clear
 hwclock --systohc
 while true; do
     echo "System Language"
@@ -35,6 +36,9 @@ while true; do
     esac
 done
 locale-gen
+
+clear
+
 read -p "Device name: " deviceName
 echo "$deviceName" | tee /etc/hostname > /dev/null
 echo -e "127.0.0.1      localhost\n::1      localhost\n127.0.1.1        $deviceName.localdomain $deviceName" | tee -a /etc/hosts > /dev/null
@@ -45,6 +49,8 @@ useradd -m $username
 passwd $username
 usermod -aG wheel $username
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+
+clear
 
 # Installation Confirmation
 echo "The bootloader will be installed now in $INSTALLPARTITION"
@@ -89,6 +95,8 @@ sed -i 's/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mir
 # Installing the OS
 pacman -Sy plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
+clear
+
 # Swap memory creation
 echo "How much GB do you want for swap memory?"
 read swap_size_gb
@@ -119,6 +127,7 @@ EOF
     echo '#!/bin/sh' > "$LOCKSCREEN_SCRIPT"
     echo 'loginctl lock-session' >> "$LOCKSCREEN_SCRIPT"
     chmod +x "$LOCKSCREEN_SCRIPT"
+    mkdir -p "/home/$username/.config/autostart/"
     LOCKSCREEN_DESKTOP="/home/$username/.config/autostart/lockscreen.sh.desktop"
     echo '[Desktop Entry]' > "$LOCKSCREEN_DESKTOP"
     echo "Exec=/home/$username/System/Scripts/lockscreen.sh" >> "$LOCKSCREEN_DESKTOP"
