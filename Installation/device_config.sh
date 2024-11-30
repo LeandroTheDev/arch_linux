@@ -7,12 +7,14 @@ fi
 
 clear
 
+### REGION: Personal OS for LeansGEN
 echo "Downloading system template..."
 pacman -S git --noconfirm
 cd /tmp
 git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arch_linux.git
 cp -r /tmp/arch_linux/Home/* /etc/skel
 rm -rf /tmp/arch_linux
+### ENDREGION
 
 clear
 hwclock --systohc
@@ -90,10 +92,9 @@ pacman -S networkmanager --noconfirm
 systemctl enable NetworkManager
 
 sed -i 's/^#\[\(multilib\)\]/[\1]/' /etc/pacman.conf
-sed -i 's/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/' /etc/pacman.conf
+sed -i '/^\[multilib\]/ {n; s/^#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/}' /etc/pacman.conf
 
 ### REGION: Personal OS for LeansGEN
-
 # Installing the OS
 pacman -Sy plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
@@ -138,10 +139,69 @@ else
         systemctl enable sddm
     fi
 fi
-
 ### ENDREGION
 
-echo ""
+clear
+
+# System Drivers
+while true; do
+    echo "CPU Drivers"
+    echo "1 - Intel"
+    echo "2 - AMD"
+    read -p "Select an option: " choice
+    
+    case $choice in
+        1)
+            pacman -S intel-ucode --noconfirm
+            break
+            ;;
+        2)
+            pacman -S amd-ucode --noconfirm
+            break
+            ;;
+        *)
+            echo "Invalid option. Please select between the avalaible options"
+            ;;
+    esac
+done
+while true; do
+    echo "Graphics Drivers"
+    echo "1 - Intel"
+    echo "2 - Nvidia"
+    echo "3 - Amd"
+    read -p "Select an option: " choice
+    
+    case $choice in
+        1)
+            pacman -S vulkan-intel lib32-vulkan-intel linux-headers --noconfirm
+            break
+            ;;
+        2)
+            pacman -S nvidia nvidia-utils lib32-nvidia-utils libva-nvidia-driver linux-headers --noconfirm
+            break
+            ;;
+        3)
+            pacman -S vulkan-radeon lib32-vulkan-radeon linux-headers --noconfirm
+            break
+            ;;
+        *)
+            echo "Invalid option. Please select between the avalaible options"
+            ;;
+    esac
+done
+
+### REGION: Personal OS for LeansGEN
+# Leans Applications
+echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle)"
+read -p "Do you want to accept? (Y/n): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
+    pacman -S firefox steam-native-runtime kwrite vscode gwenview gimp --noconfirm
+    chmod +x /home/$username/System/Scripts/gooddies.sh
+    su $username -c "/home/$username/System/Scripts/gooddies.sh"
+fi
+### ENDREGION
+
 
 # Swap memory creation
 echo "How much GB do you want for swap memory?"
