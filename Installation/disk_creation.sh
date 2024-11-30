@@ -21,7 +21,7 @@ pacman -Sy util-linux --noconfirm
 # Erase data before using fdisk to prevent unwanted messages
 echo "Erasing data..."
 wipefs -a -f "$INSTALLPARTITION"
-
+dd if=/dev/zero of=$INSTALLPARTITION bs=1M count=1000 status=progress
 
 
 # Disk formatting
