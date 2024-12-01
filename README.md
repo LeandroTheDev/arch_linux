@@ -13,4 +13,4 @@ Ultra simple arch linux installation with KDE
 - Sound driver: Pipewire
 - Will generate a system snapshot on installation with the description: Fresh Install
 - Boot manager: Grub, id: LeansGen
-- If you accept the goodies from device configurations don't forget to use ``mangohud gamemode <gamename>`` or in steam ``mangohud gamemode %command%``, and also don't forget to configure the mangohud using the program ``Goverlay``
+- If you accept the goodies from device configurations don't forget to use ``mangohud gamemoderun <gamename>`` or in steam launch parameters ``mangohud gamemoderun %command%``, and also don't forget to configure the mangohud using the program ``Goverlay``
