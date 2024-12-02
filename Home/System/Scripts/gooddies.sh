@@ -16,6 +16,13 @@ auracle clone vesktop-bin
 cd vesktop-bin
 makepkg -sic --noconfirm
 
+clear 
+cd ..
+
+auracle clone arrpc
+cd arrpc
+makepkg -sic --noconfirm
+
 # Deleting temporary folder
 rm -rf "/home/$username/Temp"
 
