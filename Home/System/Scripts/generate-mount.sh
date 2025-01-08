@@ -39,10 +39,10 @@ while true; do
         read name
 
         # Script creation
-        mkdir -p /home/$username/System/Scripts
-        cat << EOF > /home/$username/System/Scripts/mount-$disk_name.sh
+        mkdir -p "/home/$username/System/Scripts"
+        cat << EOF > "/home/$username/System/Scripts/mount-$disk_name.sh"
 #!/bin/sh
-mkdir -p /home/$username/System/Devices/$name
+mkdir -p "/home/$username/System/Devices/$name"
 sudo mount /dev/$disk_name "/home/$username/System/Devices/$name"
 EOF
         chmod +x /home/$username/System/Scripts/mount-$disk_name.sh
