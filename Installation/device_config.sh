@@ -14,6 +14,7 @@ cd /tmp
 git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arch_linux.git
 cp -r /tmp/arch_linux/Home/* /etc/skel
 rm -rf /tmp/arch_linux
+chmod +x /etc/skel/System/Scripts/firstload.sh
 ### ENDREGION
 
 clear
