@@ -99,6 +99,13 @@ sed -i '/^\[multilib\]/ {n; s/^#Include = \/etc\/pacman.d\/mirrorlist/Include = 
 # Installing the OS
 pacman -Sy plasma-desktop konsole dolphin kscreen kde-gtk-config pipewire pipewire-jack pipewire-pulse pipewire-alsa wireplumber plasma-pa breeze-gtk bluedevil plasma-nm --noconfirm
 
+# Installing the Wiki
+cd /home/$username/Desktop
+git clone https://github.com/LeandroTheDev/arch_linux.wiki.git
+mv arch_linux.wiki "Leans Gen Wiki"
+cd "Leans Gen Wiki"
+echo -e "[Desktop Entry]\nIcon=bookmark-add-symbolic" > .directory
+
 clear
 
 # Auto logging in KDE
@@ -198,11 +205,24 @@ read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
     pacman -S firefox steam-native-runtime kwrite vscode gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip --noconfirm
-    chmod +x /home/$username/System/Scripts/gooddies.sh
+    chmod +x "/home/$username/System/Scripts/gooddies.sh"
     su $username -c "/home/$username/System/Scripts/gooddies.sh"
+else
+    rm -rf "/home/$username/System/Scripts/goodies.sh"
+    rm -rf "/etc/skel/System/Scripts/goodies.sh"
 fi
 ### ENDREGION
 
+echo "Do you wish to auto mount any external device on starting the system?"
+read -p "Do you want to accept? (Y/n): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
+    chmod +x "/home/$username/System/Scripts/generate-mount.sh"
+    su $username -c "/home/$username/System/Scripts/generate-mount.sh"
+else
+    rm -rf "/home/$username/System/Scripts/generate-mount.sh"
+    rm -rf "/etc/skel/System/Scripts/generate-mount.sh"
+fi
 
 # Swap memory creation
 echo "How much GB do you want for swap memory?"

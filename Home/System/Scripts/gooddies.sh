@@ -26,4 +26,7 @@ makepkg -sic --noconfirm
 # Deleting temporary folder
 rm -rf "/home/$username/Temp"
 
+# Deleting the script
+rm -rf "/home/$username/System/Scripts/goodies.sh"
+
 clear
