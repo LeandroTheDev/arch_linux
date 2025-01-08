@@ -1,0 +1,7 @@
+[Event/ConnectionFailed]
+Action=Popup|Sound
+Sound=file:///home/{USERNAME}/System/Decoration/Sounds/bluetooth-failed.oga
+
+[Event/SetupFinished]
+Action=Popup|Sound
+Sound=file:///home/{USERNAME}/System/Decoration/Sounds/bluetooth-connected.oga

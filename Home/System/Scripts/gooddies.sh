@@ -23,6 +23,13 @@ auracle clone arrpc
 cd arrpc
 makepkg -sic --noconfirm
 
+clear 
+cd ..
+
+auracle clone xpadneo-dkms-git
+cd xpadneo-dkms-git
+makepkg -sic --noconfirm
+
 # Deleting temporary folder
 rm -rf "/home/$username/Temp"
 

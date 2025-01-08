@@ -6,6 +6,8 @@ systemctl --user enable wireplumber.service pipewire.service pipewire-pulse.serv
 # Plasma Configurations
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/kscreenlockerrc"
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/plasma-org.kde.plasma.desktop-appletsrc"
+sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/bluedevil.notifyrc"
+sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/ksmserver.notifyrc"
 
 # This script will auto delete after executing
 rm -rf $HOME/System/Scripts/firstload.sh # Deleting the script
