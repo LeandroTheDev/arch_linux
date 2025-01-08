@@ -1,6 +1,6 @@
 #!/bin/sh
 
-systemctl --user enable --now wireplumber.service pipewire.service pipewire-pulse.service
+systemctl --user enable wireplumber.service pipewire.service pipewire-pulse.service
 
 # This script will auto delete after executing
 rm -rf $HOME/System/Scripts/firstload.sh # Deleting the script
