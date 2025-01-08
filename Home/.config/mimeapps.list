@@ -1,0 +1,11 @@
+[Added Associations]
+inode/directory=org.kde.dolphin.desktop;code-oss.desktop;org.kde.gwenview.desktop;
+text/plain=org.kde.kwrite.desktop;
+
+[Default Applications]
+inode/directory=org.kde.dolphin.desktop;
+text/plain=org.kde.kwrite.desktop;
+
+[Removed Associations]
+inode/directory=org.kde.kate.desktop;
+text/plain=org.kde.kate.desktop;vim.desktop;
