@@ -11,4 +11,6 @@ PS1='[\u@\h \W]\$ '
 
 # Devices
 
+# Variables
+
 $HOME/System/Scripts/firstload.sh

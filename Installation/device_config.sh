@@ -204,12 +204,26 @@ echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Ves
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    pacman -S firefox steam-native-runtime kwrite vscode gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip --noconfirm
+    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip --noconfirm
     chmod +x "/home/$username/System/Scripts/gooddies.sh"
     su $username -c "/home/$username/System/Scripts/gooddies.sh"
 else
     rm -rf "/home/$username/System/Scripts/goodies.sh"
     rm -rf "/etc/skel/System/Scripts/goodies.sh"
+fi
+
+# Leans Development
+echo "Do you want to install LeansGEN general development tools? (Flutter, .NET, Rust, VSCode, Chromium and configure variables?)"
+read -p "Do you want to accept? (Y/n): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
+    pacman -S vscode dotnet-sdk dotnet-runtime chromium rustup --noconfirm
+    su $username -c "rustup default stable" # Rust installation
+    su $username -c "/home/$username/System/Scripts/flutter-install.sh" # Flutter installation
+    sed -i "/# Variables/a source /home/$username/System/Scripts/global-variables.sh" "/home/$username/.bashrc" # Global Variables
+else
+    rm -rf "/home/$username/System/Scripts/global-variables.sh"
+    rm -rf "/home/$username/System/Scripts/flutter-install.sh"
 fi
 ### ENDREGION
 
