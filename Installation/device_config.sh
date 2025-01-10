@@ -200,11 +200,11 @@ done
 
 ### REGION: Personal OS for LeansGEN
 # Leans Applications
-echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Ark and Compress Tools)"
+echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Flameshot, Ark and Compress Tools)"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip --noconfirm
+    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip flameshot --noconfirm
     chmod +x "/home/$username/System/Scripts/gooddies.sh"
     su $username -c "/home/$username/System/Scripts/gooddies.sh"
 else
@@ -239,6 +239,33 @@ else
     rm -rf "/home/$username/System/Scripts/xbox-bluetooth-drivers.sh"
     rm -rf "/etc/skel/System/Scripts/xbox-bluetooth-drivers.sh"
 fi
+
+# Numlock on boot
+cat > /usr/local/bin/numlock <<EOF
+#!/bin/bash
+
+for tty in /dev/tty{1..6}
+do
+    /usr/bin/setleds -D +num < "\$tty"
+done
+EOF
+
+chmod +x /usr/local/bin/numlock
+
+cat > /etc/systemd/system/numlock.service <<EOF
+[Unit]
+Description=numlock
+
+[Service]
+ExecStart=/usr/local/bin/numlock
+StandardInput=tty
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable numlock
 ### ENDREGION
 
 echo "Do you wish to auto mount any external device on starting the system?"
