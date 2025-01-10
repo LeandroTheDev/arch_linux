@@ -14,7 +14,7 @@ thickness=44
 alignment=2
 floating=1
 panelLengthMode=1
-panelVisibility=1
+panelVisibility=2
 
 [PlasmaViews][Panel 22][Defaults]
 thickness=36
@@ -28,7 +28,7 @@ thickness=27
 [PlasmaViews][Panel 27]
 floating=1
 panelLengthMode=1
-panelVisibility=1
+panelVisibility=2
 
 [PlasmaViews][Panel 27][Defaults]
 thickness=44

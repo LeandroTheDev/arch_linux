@@ -24,3 +24,7 @@ If you already have a arch linux installation and want only the default system o
 - To avoid any problems, re-add the run permission: ``sudo chmod +x /etc/skel/System/Scripts/firstload.sh``
 - You can now create your user: ``sudo useradd -m admin`` and ``sudo passwd admin``
 - And finally after loging-in into your user, run the system: ``startplasma-wayland``
+
+### Controls
+- Next Desktop: ctrl + alt + tab
+- Previous Desktop: ctrl + alt + shift + tab
