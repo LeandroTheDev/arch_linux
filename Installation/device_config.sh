@@ -224,6 +224,20 @@ if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
 else
     rm -rf "/home/$username/System/Scripts/global-variables.sh"
     rm -rf "/home/$username/System/Scripts/flutter-install.sh"
+    rm -rf "/etc/skel/System/Scripts/flutter-install.sh"
+fi
+
+# Bluetooth
+echo "Install Bluetooth Drivers?"
+read -p "Do you want to accept? (Y/n): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
+    pacman -S bluez bluez-utils --noconfirm
+    systemctl enable bluetooth
+    su $username -c "/home/$username/System/Scripts/xbox-bluetooth-drivers.sh"
+else
+    rm -rf "/home/$username/System/Scripts/xbox-bluetooth-drivers.sh"
+    rm -rf "/etc/skel/System/Scripts/xbox-bluetooth-drivers.sh"
 fi
 ### ENDREGION
 

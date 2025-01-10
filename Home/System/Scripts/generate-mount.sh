@@ -65,3 +65,4 @@ done
 
 # Deleting the script
 rm -rf "/home/$username/System/Scripts/generate-mount.sh"
+sudo rm -rf "/etc/skel/System/Scripts/generate-mount.sh"

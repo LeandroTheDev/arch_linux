@@ -1,4 +1,4 @@
-# Leans Gen
+# Leans GEN
 Ultra simple arch linux installation with KDE
 
 ### How to use
