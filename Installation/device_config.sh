@@ -213,11 +213,11 @@ else
 fi
 
 # Leans Development
-echo "Do you want to install LeansGEN general development tools? (Flutter, .NET, Rust, VSCode, Chromium and configure variables?)"
+echo "Do you want to install LeansGEN general development tools? (Flutter, .NET, Rust, VSCode, OpenSSH, Chromium and configure variables?)"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    pacman -S vscode dotnet-sdk dotnet-runtime chromium rustup --noconfirm
+    pacman -S vscode dotnet-sdk dotnet-runtime chromium rustup openssh --noconfirm
     su $username -c "rustup default stable" # Rust installation
     su $username -c "/home/$username/System/Scripts/flutter-install.sh" # Flutter installation
     sed -i "/# Variables/a source /home/$username/System/Scripts/global-variables.sh" "/home/$username/.bashrc" # Global Variables
