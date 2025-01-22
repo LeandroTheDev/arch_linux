@@ -1,6 +1,6 @@
 .dart_tool
 .idea
-windows
 .metadata
 pubspec.lock
 lmount.iml
+build
