@@ -9,6 +9,7 @@ Ultra simple arch linux installation with KDE
 
 ### Tecnical Informations
 - This script will create 2 partitions, partition 1: EFI - FAT 32 (300M), partition 2: btrfs (Remaining size)
+- Inside the installation the script will ask you what disks you want to auto mount on system boot up
 - Desktop Environment: KDE Plasma 6, desktop version (The cleaneast without Bloatwares)
 - Sound driver: Pipewire
 - Will generate a system snapshot on installation with the description: Fresh Install
