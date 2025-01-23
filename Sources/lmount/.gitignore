@@ -4,3 +4,5 @@
 pubspec.lock
 lmount.iml
 build
+.flutter-plugins
+.flutter-plugins-dependencies

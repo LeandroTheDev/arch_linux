@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:wayland_layer_shell/types.dart';
+import 'package:wayland_layer_shell/wayland_layer_shell.dart';
 
-void main() {
-  runApp(const LMount());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final waylandLayerShellPlugin = WaylandLayerShell();
+  bool isSupported = await waylandLayerShellPlugin.initialize(650, 600);
+  if (!isSupported) {
+    runApp(const LMount());
+    return;
+  }
+  await waylandLayerShellPlugin.setKeyboardMode(ShellKeyboardMode.keyboardModeExclusive);
 }
 
 class LMount extends StatelessWidget {
