@@ -200,11 +200,11 @@ done
 
 ### REGION: Personal OS for LeansGEN
 # Leans Applications
-echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Flameshot, Ark and Compress Tools)"
+echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Flameshot, Ark and Compress Tools, Plasma System Monitor)"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip flameshot --noconfirm
+    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip flameshot plasma-systemmonitor --noconfirm
     chmod +x "/home/$username/System/Scripts/gooddies.sh"
     su $username -c "/home/$username/System/Scripts/gooddies.sh"
 else

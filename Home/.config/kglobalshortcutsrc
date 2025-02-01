@@ -3,7 +3,6 @@ _k_friendly_name=Activity Manager
 switch-to-activity-dbc79d2a-b6da-40f8-bb83-5072b72b73e4=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
-Switch keyboard layout to Portuguese (Brazil)=none,none,Switch keyboard layout to Portuguese (Brazil)
 Switch to Last-Used Keyboard Layout=Meta+Alt+L,Meta+Alt+L,Switch to Last-Used Keyboard Layout
 Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
