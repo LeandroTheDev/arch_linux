@@ -32,7 +32,7 @@ mute=Volume Mute,Volume Mute,Mute
 [ksmserver]
 Halt Without Confirmation=none,,Shut Down Without Confirmation
 Lock Session=Meta+L\tScreensaver,Meta+L\tScreensaver,Lock Session
-Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Show Logout Screen
+Log Out=none,Ctrl+Alt+Del,Show Logout Screen
 Log Out Without Confirmation=none,,Log Out Without Confirmation
 LogOut=none,,Log Out
 Reboot=none,,Reboot
@@ -254,3 +254,9 @@ toggle do not disturb=none,,Toggle do not disturb
 
 [services][org.flameshot.Flameshot.desktop]
 Capture=Print
+
+[services][org.kde.krunner.desktop]
+_launch=Alt+F2\tSearch
+
+[services][org.kde.plasma-systemmonitor.desktop]
+_launch=Ctrl+Alt+Del

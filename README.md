@@ -29,3 +29,4 @@ If you already have a arch linux installation and want only the default system o
 ### Controls
 - Next Desktop: ctrl + alt + tab
 - Previous Desktop: ctrl + alt + shift + tab
+- Task manager: ctrl + alt + del
