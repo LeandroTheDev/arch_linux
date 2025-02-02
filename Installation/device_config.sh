@@ -12,7 +12,8 @@ echo "Downloading system template..."
 pacman -S git --noconfirm
 cd /tmp
 git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arch_linux.git
-cp -r /tmp/arch_linux/Home/* /etc/skel
+cp -r /tmp/arch_linux/Home/{.,}* /etc/skel
+chmod 755 -R /etc/skel
 rm -rf /tmp/arch_linux
 chmod +x /etc/skel/System/Scripts/firstload.sh
 ### ENDREGION
