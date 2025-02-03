@@ -2,3 +2,5 @@
 .idea
 leans_bindings_example.iml
 pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
