@@ -62,34 +62,15 @@ echo "Creating signatures..."
 # Disk signatures
 if [[ $INSTALLPARTITION == /dev/nvme* ]]; then
     mkfs.fat -F32 "${INSTALLPARTITION}p1"
-    mkfs.btrfs "${INSTALLPARTITION}p2"
+    mkfs.ext4 "${INSTALLPARTITION}p2"
     mount "${INSTALLPARTITION}p2" /mnt
 elif [[ $INSTALLPARTITION == /dev/sd* ]]; then
     mkfs.fat -F32 "${INSTALLPARTITION}1"
-    mkfs.btrfs "${INSTALLPARTITION}2"
+    mkfs.ext4 "${INSTALLPARTITION}2"
     mount "${INSTALLPARTITION}2" /mnt
 else
     echo "Cannot proceed the signature the device is unkown, only supports nvme and sata/ssd disk"
     exit 1
 fi
 
-# Mounting the btrfs volumes
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
-umount /mnt
-
-# Compression
-if [[ $INSTALLPARTITION == /dev/nvme* ]]; then
-    mount -o compress=zstd,subvol=@ "${INSTALLPARTITION}p2" /mnt
-    mkdir -p /mnt/home
-    mount -o compress=zstd,subvol=@home "${INSTALLPARTITION}p2" /mnt/home
-elif [[ $INSTALLPARTITION == /dev/sd* ]]; then
-    mount -o compress=zstd,subvol=@ "${INSTALLPARTITION}2" /mnt
-    mkdir -p /mnt/home
-    mount -o compress=zstd,subvol=@home "${INSTALLPARTITION}2" /mnt/home
-else
-    echo "Cannot proceed the signature the device is unkown, only supports nvme and sata/ssd disk"
-    exit 1
-fi
-
-echo "Disk setup is complete, mounted the btrfs in /mnt"
+echo "Disk setup is complete, mounted the ext4 in /mnt"

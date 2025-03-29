@@ -65,7 +65,7 @@ if [[ "$response" == "n" || "$response" == "no" ]]; then
     exit 1
 fi
 
-pacman -S btrfs-progs grub grub-btrfs efibootmgr dosfstools os-prober mtools ntfs-3g snapper --noconfirm
+pacman -S grub efibootmgr dosfstools os-prober mtools ntfs-3g --noconfirm
 mkdir /boot/EFI
 
 # Boot partitino mounting
@@ -78,7 +78,7 @@ else
     exit 1
 fi
 
-grub-install --target=x86_64-efi --bootloader-id=LeansGen --recheck
+grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=LeansGen --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 tee /usr/sbin/update-grub > /dev/null << 'EOF'
@@ -178,23 +178,25 @@ while true; do
     echo "1 - Intel"
     echo "2 - Nvidia"
     echo "3 - Amd"
+    echo "4 - Exit"
     read -p "Select an option: " choice
     
     case $choice in
         1)
             pacman -S vulkan-intel lib32-vulkan-intel linux-headers --noconfirm
-            break
             ;;
         2)
             pacman -S nvidia nvidia-utils lib32-nvidia-utils libva-nvidia-driver linux-headers --noconfirm
-            break
             ;;
         3)
             pacman -S vulkan-radeon lib32-vulkan-radeon linux-headers --noconfirm
+            ;;
+        4)
+            echo "Exiting..."
             break
             ;;
         *)
-            echo "Invalid option. Please select between the avalaible options"
+            echo "Invalid option. Please select a valid option."
             ;;
     esac
 done
@@ -214,16 +216,14 @@ else
 fi
 
 # Leans Development
-echo "Do you want to install LeansGEN general development tools? (Flutter, .NET, Rust, VSCode, OpenSSH, Chromium and configure variables?)"
+echo "Do you want to install LeansGEN general development tools? (Flutter, .NET, Rust, VSCode, OpenSSH, Chromium and configuration variables?)"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
     pacman -S vscode dotnet-sdk dotnet-runtime chromium rustup openssh --noconfirm
     su $username -c "rustup default stable" # Rust installation
     su $username -c "/home/$username/System/Scripts/flutter-install.sh" # Flutter installation
-    sed -i "/# Variables/a source /home/$username/System/Scripts/global-variables.sh" "/home/$username/.bashrc" # Global Variables
-else
-    rm -rf "/home/$username/System/Scripts/global-variables.sh"
+else    
     rm -rf "/home/$username/System/Scripts/flutter-install.sh"
     rm -rf "/etc/skel/System/Scripts/flutter-install.sh"
 fi
@@ -281,24 +281,27 @@ else
 fi
 
 # Swap memory creation
-echo "How much GB do you want for swap memory?"
-read swap_size_gb
-if [[ ! "$swap_size_gb" =~ ^[0-9]+$ ]] || [ "$swap_size_gb" -le 0 ]; then
-    echo "Invalid number for swap memory"
-    exit 1
-fi
-btrfs subvolume create /swap
-btrfs filesystem mkswapfile --size ${swap_size_gb}g --uuid clear /swap/swapfile
-swapon /swap/swapfile
+while true; do
+    echo "How much GB do you want for swap memory?"
+    read swap_size_gb
+    
+    if [[ "$swap_size_gb" =~ ^[0-9]+$ ]] && [ "$swap_size_gb" -gt 0 ]; then
+        break
+    else
+        echo "Invalid number for swap memory. Please enter a positive number."
+    fi
+done
+dd if=/dev/zero of=/swapfile bs=1M count=$((swap_size_gb * 1024)) status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+swapon /swapfile
 echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
-# Snapshot creation
-echo "Do you wish to create a snapshot from the base system to recovery later if needed?"
+echo "Do you wish to enable windows finding in grub?"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    snapper create-config /
-    snapper -c root create -d "Fresh Install"
+    sed -i 's/^#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
 fi
 
 update-grub

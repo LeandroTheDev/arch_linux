@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Leans Gen V-0.3"
+echo "Leans Gen V-0.4"
 echo "Welcome to Leans Gen, in the next steps you will install a fresh arch linux in your device, please proceed with caution, this installer requires constant internet connection."
 read -p "Press any key to continue"
 
