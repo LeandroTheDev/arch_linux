@@ -1,4 +1,6 @@
 #!/bin/sh
+# This script was made to work with systemd, first of all create a systemd script, any good example:
+# https://github.com/LeandroTheDev/arch_linux/blob/main/Scripts/systemd/executecommandafterlogin.service
 sleep_until_midnight() {
     now=$(date +%s)
     midnight=$(date -d 'tomorrow 00:00' +%s)
@@ -11,8 +13,8 @@ exec_commands() {
     local commands=("$@") # Commands array
     while true; do
         for cmd in "${commands[@]}"; do
-            echo "Executing: $cmd"
-            bash -c "$cmd"
+            echo "Restarting: $cmd"
+            bash -c systemctl restart "$cmd"
             echo "Waiting 5 minutes before next server restart..."
             sleep 300 # 5 minutes
         done
@@ -21,9 +23,12 @@ exec_commands() {
     done
 }
 
+# systemdname1 -> 12:00
+# systemdname2 -> 12:05
+
 commands_to_exec=(
-    "path/to/restart/script"
-    "path/to/restart/script2"
+    "systemdname1"
+    "systemdname2"
 )
 
 echo "Sleeping until the first midnight before starting restarts..."
