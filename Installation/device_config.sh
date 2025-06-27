@@ -7,6 +7,44 @@ fi
 
 clear
 
+### REGION: Timezone set
+while true; do
+    echo "Select your timezone:"
+    echo "1) America/Sao_Paulo 🇧🇷"
+    echo "2) America/New_York 🇺🇸"
+    echo "3) America/Los_Angeles 🇺🇸"
+    echo "4) Europe/London 🇬🇧"
+    echo "5) Europe/Berlin 🇩🇪"
+    echo "6) Europe/Paris 🇫🇷"
+    echo "7) Europe/Moscow 🇷🇺"
+    echo "8) Asia/Shanghai 🇨🇳"
+    echo "9) Asia/Tokyo 🇯🇵"
+    echo "0) Cancel"
+
+    read -p "Enter the number of your choice: " choice
+
+    case $choice in
+        1) timezone="America/Sao_Paulo" ;;
+        2) timezone="America/New_York" ;;
+        3) timezone="America/Los_Angeles" ;;
+        4) timezone="Europe/London" ;;
+        5) timezone="Europe/Berlin" ;;
+        6) timezone="Europe/Paris" ;;
+        7) timezone="Europe/Moscow" ;;
+        8) timezone="Asia/Shanghai" ;;
+        9) timezone="Asia/Tokyo" ;;
+        0) echo "Canceled."; exit 0 ;;
+        *) echo "Invalid option. Try again." && continue ;;
+    esac
+
+    echo "Setting timezone to: $timezone"
+    timedatectl set-timezone "$timezone"
+    echo "Timezone configured:"
+    timedatectl status
+    break
+done
+### ENDREGION
+
 ### REGION: Personal OS for LeansGEN
 echo "Downloading system template..."
 pacman -S git --noconfirm
@@ -51,7 +89,7 @@ cat <<EOF > /etc/hosts
 127.0.1.1   $deviceName.localdomain $deviceName
 EOF
 
-#REGION Root and Administrator creation
+### REGION: Root and Administrator creation
 while true; do
     echo "Type the root password:"
     passwd
@@ -87,7 +125,7 @@ while true; do
         echo "Failed to set user password. Try again."
     fi
 done
-#ENDREGIOn
+### ENDREGION
 
 usermod -aG wheel $username
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
