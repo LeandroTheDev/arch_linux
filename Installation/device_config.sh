@@ -273,8 +273,12 @@ while true; do
             pacman -S vulkan-radeon lib32-vulkan-radeon linux-headers --noconfirm
             ;;
         4)
+            # Instal virtual box dependencies
             pacman -S virtualbox-guest-utils --noconfirm
             systemctl enable vboxservice.service
+
+            # Add user to the virtual machine group
+            usermod -aG vboxsf "$username"
             break
             ;;
         5)
