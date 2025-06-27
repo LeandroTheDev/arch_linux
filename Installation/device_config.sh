@@ -45,7 +45,11 @@ clear
 
 read -p "Device name: " deviceName
 echo "$deviceName" | tee /etc/hostname > /dev/null
-echo -e "127.0.0.1      localhost\n::1      localhost\n127.0.1.1        $deviceName.localdomain $deviceName" | tee -a /etc/hosts > /dev/null
+cat <<EOF > /etc/hosts
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   $deviceName.localdomain $deviceName
+EOF
 echo "Type the root password:"
 passwd
 read -p "Administrator username: " username
