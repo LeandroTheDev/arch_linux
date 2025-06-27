@@ -282,7 +282,7 @@ while true; do
         echo "Invalid number for swap memory. Please enter a positive number."
     fi
 done
-mkswap -U clear --size $(swap_size_gb)G --file /swapfile
+mkswap -U clear --size ${swap_size_gb}G --file /swapfile
 swapon /swapfile
 echo '/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
