@@ -1,5 +1,6 @@
 [ActivityManager]
 _k_friendly_name=Activity Manager
+switch-to-activity-234c5a44-8ee2-4d0d-add0-d8096c850c74=none,none,Switch to activity "Default"
 switch-to-activity-dbc79d2a-b6da-40f8-bb83-5072b72b73e4=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
@@ -10,12 +11,6 @@ _k_friendly_name=Keyboard Layout Switcher
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
 _k_friendly_name=Accessibility
-
-[kcm_touchpad]
-Disable Touchpad=Touchpad Off,Touchpad Off,
-Enable Touchpad=Touchpad On,Touchpad On,
-Toggle Touchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku,Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku,
-_k_friendly_name=Touchpad
 
 [kmix]
 _k_friendly_name=Audio Volume
@@ -108,17 +103,21 @@ Switch to Screen to the Left=none,,Switch to Screen to the Left
 Switch to Screen to the Right=none,,Switch to Screen to the Right
 Toggle Night Color=none,none,Suspend/Resume Night Light
 Toggle Window Raise/Lower=none,,Toggle Window Raise/Lower
-Walk Through Windows=Alt+Tab,Alt+Tab,Walk Through Windows
-Walk Through Windows (Reverse)=Alt+Shift+Tab,Alt+Shift+Tab,Walk Through Windows (Reverse)
-Walk Through Windows Alternative=none,,Walk Through Windows Alternative
-Walk Through Windows Alternative (Reverse)=none,,Walk Through Windows Alternative (Reverse)
-Walk Through Windows of Current Application=Alt+`,Alt+`,Walk Through Windows of Current Application
-Walk Through Windows of Current Application (Reverse)=Alt+~,Alt+~,Walk Through Windows of Current Application (Reverse)
-Walk Through Windows of Current Application Alternative=none,,Walk Through Windows of Current Application Alternative
-Walk Through Windows of Current Application Alternative (Reverse)=none,,Walk Through Windows of Current Application Alternative (Reverse)
+Walk Through Windows=Alt+Tab,Meta+Tab\tAlt+Tab,Walk Through Windows
+Walk Through Windows (Reverse)=Alt+Shift+Tab,Meta+Shift+Tab\tAlt+Shift+Tab,Walk Through Windows (Reverse)
+Walk Through Windows Alternative=none,none,Walk Through Windows Alternative
+Walk Through Windows Alternative (Reverse)=none,none,Walk Through Windows Alternative (Reverse)
+Walk Through Windows of Current Application=Alt+`,Meta+`\tAlt+`,Walk Through Windows of Current Application
+Walk Through Windows of Current Application (Reverse)=Alt+~,Meta+~\tAlt+~,Walk Through Windows of Current Application (Reverse)
+Walk Through Windows of Current Application Alternative=none,none,Walk Through Windows of Current Application Alternative
+Walk Through Windows of Current Application Alternative (Reverse)=none,none,Walk Through Windows of Current Application Alternative (Reverse)
 Window Above Other Windows=none,,Keep Window Above Others
 Window Below Other Windows=none,,Keep Window Below Others
 Window Close=Alt+F4,Alt+F4,Close Window
+Window Custom Quick Tile Bottom=none,,Custom Quick Tile Window to the Bottom
+Window Custom Quick Tile Left=none,,Custom Quick Tile Window to the Left
+Window Custom Quick Tile Right=none,,Custom Quick Tile Window to the Right
+Window Custom Quick Tile Top=none,,Custom Quick Tile Window to the Top
 Window Fullscreen=none,,Make Window Fullscreen
 Window Grow Horizontal=none,,Expand Window Horizontally
 Window Grow Vertical=none,,Expand Window Vertically
@@ -190,6 +189,7 @@ Window to Screen 5=none,,Move Window to Screen 5
 Window to Screen 6=none,,Move Window to Screen 6
 Window to Screen 7=none,,Move Window to Screen 7
 _k_friendly_name=KWin
+disableInputCapture=Meta+Shift+Esc,Meta+Shift+Esc,Disable Active Input Capture
 view_actual_size=Meta+0,Meta+0,Zoom to Actual Size
 view_zoom_in=Meta++\tMeta+=,Meta++\tMeta+=,Zoom In
 view_zoom_out=Meta+-,Meta+-,Zoom Out
@@ -225,7 +225,7 @@ powerProfile=Battery\tMeta+B,Battery\tMeta+B,Switch Power Profile
 _k_friendly_name=plasmashell
 activate application launcher=Meta\tAlt+F1,Meta\tAlt+F1,Activate Application Launcher
 activate task manager entry 1=Meta+1,Meta+1,Activate Task Manager Entry 1
-activate task manager entry 10=none,Meta+0,Activate Task Manager Entry 10
+activate task manager entry 10=none,,Activate Task Manager Entry 10
 activate task manager entry 2=Meta+2,Meta+2,Activate Task Manager Entry 2
 activate task manager entry 3=Meta+3,Meta+3,Activate Task Manager Entry 3
 activate task manager entry 4=Meta+4,Meta+4,Activate Task Manager Entry 4
@@ -239,10 +239,11 @@ clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Automatic Action Popup Menu
 cycle-panels=Meta+Alt+P,Meta+Alt+P,Move keyboard focus between panels
 cycleNextAction=none,,Next History Item
 cyclePrevAction=none,,Previous History Item
+edit_clipboard=none,,Edit Contents…
 manage activities=Meta+Q,Meta+Q,Show Activity Switcher
 next activity=Meta+A,none,Walk through activities
 previous activity=Meta+Shift+A,none,Walk through activities (Reverse)
-repeat_action=Meta+Ctrl+R,Meta+Ctrl+R,Manually Invoke Action on Current Clipboard
+repeat_action=Meta+Ctrl+R,,Manually Invoke Action on Current Clipboard
 show dashboard=Ctrl+F12,Ctrl+F12,Show Desktop
 show-barcode=none,,Show Barcode…
 show-on-mouse-pos=Meta+V,Meta+V,Show Clipboard Items at Mouse Position

@@ -1,0 +1,3 @@
+[AC][Display]
+DimDisplayIdleTimeoutSec=-1
+DimDisplayWhenIdle=false
