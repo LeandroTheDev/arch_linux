@@ -50,11 +50,45 @@ cat <<EOF > /etc/hosts
 ::1         localhost
 127.0.1.1   $deviceName.localdomain $deviceName
 EOF
-echo "Type the root password:"
-passwd
-read -p "Administrator username: " username
-useradd -m $username
-passwd $username
+
+#REGION Root and Administrator creation
+while true; do
+    echo "Type the root password:"
+    passwd
+    if [ $? -eq 0 ]; then
+        break
+    else
+        echo "Failed to set root password. Try again."
+    fi
+done
+
+while true; do
+    read -p "Administrator username: " username
+
+    if id "$username" &>/dev/null; then
+        echo "User '$username' already exists. Choose another name."
+        continue
+    fi
+
+    useradd -m "$username"
+    if [ $? -eq 0 ]; then
+        break
+    else
+        echo "Failed to create user. Try again."
+    fi
+done
+
+while true; do
+    echo "Type the password for user '$username':"
+    passwd "$username"
+    if [ $? -eq 0 ]; then
+        break
+    else
+        echo "Failed to set user password. Try again."
+    fi
+done
+#ENDREGIOn
+
 usermod -aG wheel $username
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 
