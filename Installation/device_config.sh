@@ -41,6 +41,7 @@ while true; do
     timedatectl set-timezone "$timezone"
     echo "Timezone configured:"
     timedatectl status
+    hwclock --systohc
     break
 done
 ### ENDREGION
@@ -57,7 +58,6 @@ chmod +x /etc/skel/System/Scripts/firstload.sh
 ### ENDREGION
 
 clear
-hwclock --systohc
 while true; do
     echo "System Language"
     echo "1 - English"
