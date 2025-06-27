@@ -92,7 +92,7 @@ immutability=1
 plugin=org.kde.plasma.icontasks
 
 [Containments][27][Applets][30][Configuration][General]
-launchers=preferred://browser,preferred://filemanager,applications:steam-native.desktop,applications:vesktop.desktop,applications:org.kde.konsole.desktop
+launchers=preferred://browser,preferred://filemanager,applications:steam-native.desktop,applications:org.kde.konsole.desktop
 
 [Containments][27][General]
 AppletOrder=28;30

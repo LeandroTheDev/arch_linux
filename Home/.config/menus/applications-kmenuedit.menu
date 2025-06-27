@@ -103,7 +103,6 @@
    <Merge type="files"/>
    <Filename>firefox.desktop</Filename>
    <Filename>vncviewer.desktop</Filename>
-   <Filename>vesktop.desktop</Filename>
    <Filename>org.qbittorrent.qBittorrent.desktop</Filename>
   </Layout>
   <Exclude>
