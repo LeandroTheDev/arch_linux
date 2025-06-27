@@ -110,7 +110,7 @@ echo -e "[Desktop Entry]\nIcon=bookmark-add-symbolic" > .directory
 clear
 
 # Auto logging in KDE
-echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE and lock the session?, if you are a newbie consider choosing N"
+echo "Do you wish to automatically login $username in TTY1 and automatically open the KDE and lock the session? (More faster but doesn't accept multiple users)"
 read -p "Do you want to accept? (y/N): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ "$response" == "y" || "$response" == "yes" ]]; then
@@ -140,7 +140,7 @@ X-KDE-AutostartScript=true
 EOF
 else
     # SDDM Version
-    echo "Do you wish to use a login manager instead? (SDDM), if you are a newbie consider choosing Y"
+    echo "Do you wish to use a login manager instead? (SDDM), (If you don't accept this option you will not have a graphical interface)"
     read -p "Do you want to accept? (Y/n): " response
     response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
     if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
@@ -157,8 +157,9 @@ while true; do
     echo "CPU Drivers"
     echo "1 - Intel"
     echo "2 - AMD"
+    echo "3 - Virtual Machine"
     read -p "Select an option: " choice
-    
+
     case $choice in
         1)
             pacman -S intel-ucode --noconfirm
@@ -168,17 +169,21 @@ while true; do
             pacman -S amd-ucode --noconfirm
             break
             ;;
+        3)
+            break
+            ;;
         *)
-            echo "Invalid option. Please select between the avalaible options"
+            echo "Invalid option. Please select a valid option."
             ;;
     esac
 done
 while true; do
-    echo "Graphics Drivers"
+    echo "Graphics Drivers, if you have Hybrid GPUs consider installing for both"
     echo "1 - Intel"
     echo "2 - Nvidia"
     echo "3 - Amd"
-    echo "4 - Exit"
+    echo "4 - Virtual Machine"
+    echo "5 - Exit"
     read -p "Select an option: " choice
     
     case $choice in
@@ -192,6 +197,11 @@ while true; do
             pacman -S vulkan-radeon lib32-vulkan-radeon linux-headers --noconfirm
             ;;
         4)
+            pacman -S virtualbox-guest-utils --noconfirm
+            systemctl enable vboxservice.service
+            break
+            ;;
+        5)
             echo "Exiting..."
             break
             ;;
@@ -203,11 +213,11 @@ done
 
 ### REGION: Personal OS for LeansGEN
 # Leans Applications
-echo "Do you want to install LeansGEN recommended programs? (Firefox, Steam, Vesktop (Discord), Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Flameshot, Ark and Compress Tools, Plasma System Monitor, Kleopatra (Encryption Manager))"
+echo "Do you want to install LeansGEN basic recommended programs? (Firefox, Steam, Discord, Kwrite Gwenview, GIMP, Auracle, Mangohud, Goverlay, Gamemode, Flameshot, Ark and Compress Tools, Plasma System Monitor)"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    pacman -S firefox steam-native-runtime kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip flameshot plasma-systemmonitor kleopatra --noconfirm
+    pacman -S firefox steam-native-runtime discord kwrite gwenview gimp mangohud goverlay gamemode ark unzip zip unrar p7zip flameshot plasma-systemmonitor --noconfirm
     chmod +x "/home/$username/System/Scripts/gooddies.sh"
     su $username -c "/home/$username/System/Scripts/gooddies.sh"
 else
@@ -241,33 +251,14 @@ else
     rm -rf "/etc/skel/System/Scripts/xbox-bluetooth-drivers.sh"
 fi
 
-# Numlock on boot
-cat > /usr/local/bin/numlock <<EOF
-#!/bin/bash
-
-for tty in /dev/tty{1..6}
-do
-    /usr/bin/setleds -D +num < "\$tty"
-done
-EOF
-
-chmod +x /usr/local/bin/numlock
-
-cat > /etc/systemd/system/numlock.service <<EOF
-[Unit]
-Description=numlock
-
-[Service]
-ExecStart=/usr/local/bin/numlock
-StandardInput=tty
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl enable numlock
 ### ENDREGION
+
+# After all goodies installation, lets copy the root template
+cp -r /etc/skel/.root/. /
+
+# Numlock on boot
+chmod +x /usr/local/bin/numlock
+systemctl enable numlock
 
 echo "Do you wish to auto mount any external device on starting the system?"
 read -p "Do you want to accept? (Y/n): " response
@@ -291,11 +282,9 @@ while true; do
         echo "Invalid number for swap memory. Please enter a positive number."
     fi
 done
-dd if=/dev/zero of=/swapfile bs=1M count=$((swap_size_gb * 1024)) status=progress
-chmod 0600 /swapfile
-mkswap -U clear /swapfile
+mkswap -U clear --size $(swap_size_gb)G --file /swapfile
 swapon /swapfile
-echo '/swap/swapfile none swap defaults 0 0' | tee -a /etc/fstab
+echo '/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
 echo "Do you wish to enable windows finding in grub?"
 read -p "Do you want to accept? (Y/n): " response

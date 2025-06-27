@@ -1,0 +1,1 @@
+this file folder will be deleted after installation, is used to copy files to the system root folder /

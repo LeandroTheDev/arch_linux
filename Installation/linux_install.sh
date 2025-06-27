@@ -16,6 +16,6 @@ if [[ "$response" == "n" || "$response" == "no" ]]; then
 fi
 
 # Installation Process
-pacman -Sy archlinux-keyring --noconfirm
 PACMAN_OPTS="--noconfirm" pacstrap /mnt base-devel base linux linux-firmware vim
+# Generating fstab for the Linux System
 genfstab -U /mnt >> /mnt/etc/fstab
