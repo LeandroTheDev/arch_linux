@@ -11,13 +11,12 @@ Ultra simple arch linux installation with KDE
 - To do
 
 ### Tecnical Informations
-- This script will create 2 partitions, partition 1: EFI - FAT 32 (300M), partition 2: btrfs (Remaining size)
+- This script will create 2 partitions, partition 1: EFI - FAT 32 (300M), partition 2: ext4 (Remaining size)
 - Inside the installation the script will ask you what disks you want to auto mount on system boot up
 - Desktop Environment: KDE Plasma 6, desktop version (The cleaneast without Bloatwares)
 - Sound driver: Pipewire
-- Will generate a system snapshot on installation with the description: Fresh Install
 - Boot manager: Grub, id: LeansGen
-- If you accept the goodies from device configurations don't forget to use ``mangohud gamemoderun <gamename>`` or in steam launch parameters ``mangohud gamemoderun %command%``, and also don't forget to configure the mangohud using the program ``Goverlay``
+- If you accept the goodies from device configurations don't forget to use ``mangohud gamemoderun <gamename>`` or in steam launch parameters ``mangohud gamemoderun %command%``, and also don't forget to configure the mangohud using the program ``Goverlay`` (For Gamers)
 
 ## Configurations Only
 If you already have a arch linux installation and want only the default system organization from LeansGen, follow this steps:
