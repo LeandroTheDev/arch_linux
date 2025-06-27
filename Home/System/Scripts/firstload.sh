@@ -9,6 +9,7 @@ sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/kscreenlockerrc"
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/plasma-org.kde.plasma.desktop-appletsrc"
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/bluedevil.notifyrc"
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/ksmserver.notifyrc"
+sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/plasmarc"
 
 # Places folder creation
 ln -s /home/$username/System/Places/ /home/$username/.config/Places
