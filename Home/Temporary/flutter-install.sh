@@ -11,5 +11,5 @@ mv ./flutter ./Flutter
 sudo pacman -S cmake ninja clang --noconfirm
 
 # Deleting the script
-rm -rf "/home/$username/System/Scripts/flutter-install.sh"
-sudo rm -rf "/etc/skel/System/Scripts/flutter-install.sh"
+rm -rf "/home/$username/Temporary/flutter-install.sh"
+sudo rm -rf "/etc/skel/Temporary/flutter-install.sh"

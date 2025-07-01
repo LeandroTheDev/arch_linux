@@ -54,7 +54,7 @@ git clone --branch leansgen --single-branch https://github.com/LeandroTheDev/arc
 cp -r /tmp/arch_linux/Home/{.,}* /etc/skel
 chmod 755 -R /etc/skel
 rm -rf /tmp/arch_linux
-chmod +x /etc/skel/System/Scripts/firstload.sh
+chmod +x /etc/skel/Temporary/firstload.sh
 ### ENDREGION
 
 clear
@@ -144,7 +144,7 @@ fi
 pacman -S grub efibootmgr dosfstools os-prober mtools ntfs-3g --noconfirm
 mkdir /boot/EFI
 
-# Boot partitino mounting
+# Boot patition mounting
 if [[ $INSTALLPARTITION == /dev/nvme* ]]; then
     mount "${INSTALLPARTITION}p1" /boot/EFI
 elif [[ $INSTALLPARTITION == /dev/sd* ]]; then
@@ -312,10 +312,10 @@ response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
     pacman -S vscode dotnet-sdk dotnet-runtime chromium rustup openssh --noconfirm
     su $username -c "rustup default stable" # Rust installation
-    su $username -c "/home/$username/System/Scripts/flutter-install.sh" # Flutter installation
+    su $username -c "/home/$username/Temporary/flutter-install.sh" # Flutter installation
 else    
-    rm -rf "/home/$username/System/Scripts/flutter-install.sh"
-    rm -rf "/etc/skel/System/Scripts/flutter-install.sh"
+    rm -rf "/home/$username/Temporary/flutter-install.sh"
+    rm -rf "/etc/skel/Temporary/flutter-install.sh"
 fi
 
 # Bluetooth
@@ -344,11 +344,11 @@ echo "Do you wish to auto mount any external device on starting the system?"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
-    chmod +x "/home/$username/System/Scripts/generate-mount.sh"
-    su $username -c "/home/$username/System/Scripts/generate-mount.sh"
+    chmod +x "/home/$username/Temporary/generate-mount.sh"
+    su $username -c "/home/$username/Temporary/generate-mount.sh"
 else
-    rm -rf "/home/$username/System/Scripts/generate-mount.sh"
-    rm -rf "/etc/skel/System/Scripts/generate-mount.sh"
+    rm -rf "/home/$username/Temporary/generate-mount.sh"
+    rm -rf "/etc/skel/Temporary/generate-mount.sh"
 fi
 
 # Swap memory creation
@@ -366,12 +366,16 @@ mkswap -U clear --size ${swap_size_gb}G --file /swapfile
 swapon /swapfile
 echo '/swapfile none swap defaults 0 0' | tee -a /etc/fstab
 
+# Windows dual boot
 echo "Do you wish to enable windows finding in grub?"
 read -p "Do you want to accept? (Y/n): " response
 response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" == "y" || "$response" == "yes" ]]; then
     sed -i 's/^#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
 fi
+
+# Prevent wrong permissions after installation
+chown -R "$username:$username" "/home/$username"
 
 update-grub
 
