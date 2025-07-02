@@ -15,7 +15,7 @@ plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
 [Containments][1][Wallpaper][org.kde.image][General]
-Image=/home/{USERNAME}/System/Decoration/Wallpapers/wallpaper_1_wallhaven-j3ov5w_4838x2721.png
+Image=/home/{USERNAME}/System/Decoration/Wallpapers/wallpaper_3_wallhaven-l372my_4838x2721.png
 
 [Containments][22]
 activityId=
@@ -84,7 +84,7 @@ DialogWidth=720
 
 [Containments][27][Applets][28][Configuration][General]
 favoritesPortedToKAstats=true
-icon=/home/{USERNAME}/System/Decoration/Leans_Logo.png
+icon=/home/{USERNAME}/System/Decoration/Leans_Logo_Empty.png
 systemFavorites=suspend\\,hibernate\\,reboot\\,shutdown
 
 [Containments][27][Applets][30]

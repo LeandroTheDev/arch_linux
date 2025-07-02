@@ -1,3 +1,6 @@
+[Activities][LastVirtualDesktop]
+2b2831e3-fce9-4717-8178-e6f75d0f1b50=635bfd2f-eed6-498d-ab40-cd0a4da0cea9
+
 [Desktops]
 Id_1=635bfd2f-eed6-498d-ab40-cd0a4da0cea9
 Id_2=47d67ff2-29b5-403c-b0b6-4cbf6f6f0df3
@@ -14,6 +17,12 @@ NightTemperature=2400
 
 [Tiling]
 padding=4
+
+[Tiling][47d67ff2-29b5-403c-b0b6-4cbf6f6f0df3][e233b7d7-b9f7-49fc-9e01-3b735b89a287]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][635bfd2f-eed6-498d-ab40-cd0a4da0cea9][e233b7d7-b9f7-49fc-9e01-3b735b89a287]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][67870b99-c714-50f5-81c6-f8db15e11d06]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}

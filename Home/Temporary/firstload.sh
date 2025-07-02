@@ -7,6 +7,7 @@ systemctl --user enable wireplumber.service pipewire.service pipewire-pulse.serv
 # Plasma Configurations
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/plasma-org.kde.plasma.desktop-appletsrc"
 sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/bluedevil.notifyrc"
+sed -i "s/{USERNAME}/$username/g" "/home/$username/.config/kscreenlockerrc"
 
 # Places folder creation
 ln -s /home/$username/.config /home/$username/System/Places/Config
