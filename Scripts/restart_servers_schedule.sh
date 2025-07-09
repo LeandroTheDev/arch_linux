@@ -14,7 +14,7 @@ exec_commands() {
     while true; do
         for cmd in "${commands[@]}"; do
             echo "Restarting: $cmd"
-            bash -c systemctl restart "$cmd"
+            systemctl restart "$cmd"
             echo "Waiting 5 minutes before next server restart..."
             sleep 300 # 5 minutes
         done
