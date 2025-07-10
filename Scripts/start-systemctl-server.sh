@@ -4,10 +4,10 @@
 daily_alert_loop() {
     while true; do
         now=$(date +%s)
-        target=$(date -d "12:00" +%s)
+        target=$(date -d "00:00" +%s)
 
         if [ "$now" -ge "$target" ]; then
-            target=$(date -d "tomorrow 12:00" +%s)
+            target=$(date -d "tomorrow 00:00" +%s)
         fi
 
         sleep_seconds=$((target - now))
