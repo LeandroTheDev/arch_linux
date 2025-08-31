@@ -20,7 +20,7 @@ daily_alert_loop() {
 daily_alert_loop &
 
 # Running a http server (optional) (trickle is used to limit the web server 1mb per second (to protect the integrity of the main server)
-tmux new-session -d -s httpservername1 "bash -c 'cd /home/user/website && trickle -s -d 1024 -u 1024 python3 -m http.server 27000
+tmux new-session -d -s httpservername1 "bash -c 'cd /home/user/website && trickle -s -d 1024 -u 1024 python3 -m http.server 27000'"
 
 # Running servers in tmux to execute commands inside and view logs
 tmux new-session -d -s servername1 "bash -c './start-server1.sh'"
