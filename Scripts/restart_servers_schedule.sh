@@ -34,6 +34,8 @@ commands_to_exec=(
 echo "Sleeping until the first midnight before starting restarts..."
 sleep_until_midnight
 
+exec_commands "${commands_to_exec[@]}"
+
 while true; do
     exec_commands "${commands_to_exec[@]}"
     sleep_until_midnight
