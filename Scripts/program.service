@@ -1,0 +1,14 @@
+# This file should be in /etc/systemd/system/program.service
+
+[Unit]
+Description=Starts the program
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/user/Program/binary
+WorkingDirectory=/home/user/Program
+User=user
+
+[Install]
+WantedBy=multi-user.target
