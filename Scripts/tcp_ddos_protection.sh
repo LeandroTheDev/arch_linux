@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is any example for valve games from ports 27015-27030
 
-# Create a custom chain only once (if it doesn't already exist
+# Create a custom chain only once (if it doesn't already exist)
 iptables -N TCP_FLOOD 2>/dev/null
 
 # Redirects traffic from each port to the TCP_FLOOD chain
