@@ -1,0 +1,35 @@
+#!/bin/sh
+# Protects the ports 8000-8010 only to localhost
+
+iptables -A INPUT -p tcp --dport 8000 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8000 -j DROP
+
+iptables -A INPUT -p tcp --dport 8001 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8001 -j DROP
+
+iptables -A INPUT -p tcp --dport 8002 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8002 -j DROP
+
+iptables -A INPUT -p tcp --dport 8003 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8003 -j DROP
+
+iptables -A INPUT -p tcp --dport 8004 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8004 -j DROP
+
+iptables -A INPUT -p tcp --dport 8005 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8005 -j DROP
+
+iptables -A INPUT -p tcp --dport 8006 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8006 -j DROP
+
+iptables -A INPUT -p tcp --dport 8007 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8007 -j DROP
+
+iptables -A INPUT -p tcp --dport 8008 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8008 -j DROP
+
+iptables -A INPUT -p tcp --dport 8009 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8009 -j DROP
+
+iptables -A INPUT -p tcp --dport 8010 -s 127.0.0.1 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8010 -j DROP
