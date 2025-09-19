@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Davince resolve does not have some codecs because of licenses bullshits, this will convert the files to be compatible with davince, requires ffmpeg
+
 convert_video() {
     input="$1"
     filename=$(basename -- "$input")
@@ -27,27 +29,27 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            echo "❌ Unknown option: $1"
+            echo "Unknown option: $1"
             exit 1
             ;;
     esac
 done
 
-# Validações
+# Validations
 if [[ -n "$folderPath" && -n "$filePath" ]]; then
-    echo "❌ Use apenas um parâmetro: --folderPath OU --filePath."
+    echo "Use only one parameter: --folderPath OR --filePath."
     exit 1
 fi
 
 if [[ -n "$folderPath" ]]; then
     if [[ ! -d "$folderPath" ]]; then
-        echo "❌ Pasta não encontrada: $folderPath"
+        echo "Folder not found: $folderPath"
         exit 1
     fi
-    echo "🔄 Convertendo todos os vídeos em: $folderPath"
+    echo "Converting all videos in: $folderPath"
     shopt -s nullglob
     for video in "$folderPath"/*.{mp4,mkv,mov}; do
-        echo "🎥 Convertendo: $video"
+        echo "Converting: $video"
         convert_video "$video"
     done
     exit 0
@@ -55,27 +57,27 @@ fi
 
 if [[ -n "$filePath" ]]; then
     if [[ ! -f "$filePath" ]]; then
-        echo "❌ Arquivo não encontrado: $filePath"
+        echo "File not found: $filePath"
         exit 1
     fi
-    echo "🎥 Convertendo arquivo único: $filePath"
+    echo "Converting single file: $filePath"
     convert_video "$filePath"
     exit 0
 fi
 
-# Entrada interativa
-read -rp "Informe o caminho de um arquivo de vídeo ou pasta: " input
+# Interactive input
+read -rp "Enter the path of a video file or folder: " input
 if [[ -f "$input" ]]; then
-    echo "🎥 Convertendo arquivo: $input"
+    echo "Converting file: $input"
     convert_video "$input"
 elif [[ -d "$input" ]]; then
-    echo "🔄 Convertendo todos os vídeos em: $input"
+    echo "Converting all videos in: $input"
     shopt -s nullglob
     for video in "$input"/*.{mp4,mkv,mov}; do
-        echo "🎥 Convertendo: $video"
+        echo "Converting: $video"
         convert_video "$video"
     done
 else
-    echo "❌ Caminho inválido: $input"
+    echo "Invalid path: $input"
     exit 1
 fi
