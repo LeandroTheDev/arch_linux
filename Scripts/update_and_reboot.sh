@@ -21,4 +21,5 @@ sudo paccache -ruk0
 sudo journalctl --vacuum-size=200M
 
 echo "Update success, rebotting..."
+sync
 systemctl reboot
