@@ -1,9 +1,11 @@
+#!/bin/sh
+
 # This script will update your system remove all cache
 # clean journals
 # remove previous versions from package
 # and finally reboot
 
-#!/bin/sh
+
 updates=$(pacman -Qu | awk '{print $1}')
 if [ -z "$updates" ]; then
     echo "No available updates, reboot cancelled"
