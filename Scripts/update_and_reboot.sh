@@ -22,4 +22,4 @@ sudo journalctl --vacuum-size=200M
 
 echo "Update success, rebotting..."
 sync
-systemctl reboot
+sudo reboot now
